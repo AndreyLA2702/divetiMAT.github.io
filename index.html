@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Matemáticas</title>
+<!-- Fuente divertida y abultada -->
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap" rel="stylesheet">
 <style>
 body {
     margin: 0;
@@ -17,7 +19,12 @@ body {
 }
 
 h1 {
+    font-family: 'Fredoka One', cursive;
+    font-size: 70px;
     margin-bottom: 40px;
+    background: linear-gradient(90deg, #ff6ec7, #ffd86e, #6effb8, #6ebeff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
     text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
 }
 
@@ -145,33 +152,41 @@ function mostrarOperacion() {
     document.getElementById("respuesta").value = "";
 }
 
+// Dibujar árboles más realistas
+function dibujarArbol(x, y) {
+    ctx.fillStyle = "#8B4513"; // tronco
+    ctx.fillRect(x-5, y, 10, 40);
+    ctx.fillStyle = "#228B22"; // copa
+    ctx.beginPath();
+    ctx.moveTo(x-20, y);
+    ctx.lineTo(x+20, y);
+    ctx.lineTo(x, y-30);
+    ctx.closePath();
+    ctx.fill();
+}
+
 function dibujarAhorcado() {
     ctx.clearRect(0,0,canvas.width,canvas.height);
-
     if(errores >= 2){
-        // dibujar árboles
-        ctx.strokeStyle="white";
-        ctx.lineWidth=3;
-        ctx.beginPath();
-        ctx.moveTo(20,150); ctx.lineTo(20,50); ctx.stroke(); // arbol izquierdo
-        ctx.beginPath();
-        ctx.moveTo(280,150); ctx.lineTo(280,50); ctx.stroke(); // arbol derecho
+        dibujarArbol(50,110);
+        dibujarArbol(250,110);
     }
     if(errores >= 3){
-        // dibujar cuerda
+        ctx.strokeStyle="white";
+        ctx.lineWidth=2;
         ctx.beginPath();
-        ctx.moveTo(20,50); ctx.lineTo(280,50); ctx.stroke();
+        ctx.moveTo(50,80); ctx.lineTo(250,80);
+        ctx.stroke();
     }
     if(errores >= 1){
-        // dibujar persona en el centro
         ctx.strokeStyle="red";
         ctx.beginPath();
-        ctx.arc(150,80,10,0,Math.PI*2); // cabeza
-        ctx.moveTo(150,90); ctx.lineTo(150,130); // cuerpo
-        ctx.moveTo(150,100); ctx.lineTo(130,110); // brazo izq
-        ctx.moveTo(150,100); ctx.lineTo(170,110); // brazo der
-        ctx.moveTo(150,130); ctx.lineTo(130,150); // pierna izq
-        ctx.moveTo(150,130); ctx.lineTo(170,150); // pierna der
+        ctx.arc(150,90,10,0,Math.PI*2);
+        ctx.moveTo(150,100); ctx.lineTo(150,140);
+        ctx.moveTo(150,110); ctx.lineTo(130,125);
+        ctx.moveTo(150,110); ctx.lineTo(170,125);
+        ctx.moveTo(150,140); ctx.lineTo(130,160);
+        ctx.moveTo(150,140); ctx.lineTo(170,160);
         ctx.stroke();
     }
 }
@@ -179,7 +194,6 @@ function dibujarAhorcado() {
 function comprobar() {
     const user = parseInt(document.getElementById("respuesta").value);
     const resultadoDiv = document.getElementById("resultado");
-
     if(user === operaciones[actual].resultado){
         resultadoDiv.textContent = "¡Correcto! ✅";
         resultadoDiv.style.color = "lightgreen";
