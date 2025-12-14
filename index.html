@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Matemáticas</title>
     <style>
-        /* Fondo degradado */
         body {
             margin: 0;
             font-family: Arial, sans-serif;
@@ -18,12 +17,10 @@
         }
 
         h1 {
-            font-size: 4em;
             margin-bottom: 40px;
             text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
         }
 
-        /* Estilo de los botones */
         .button {
             background-color: rgba(255, 255, 255, 0.2);
             border: 2px solid white;
@@ -43,7 +40,6 @@
             border-color: #2575fc;
         }
 
-        /* Secciones de contenido */
         section {
             max-width: 800px;
             margin-top: 50px;
@@ -55,7 +51,6 @@
             margin-bottom: 15px;
         }
 
-        /* Estilo juego de aritmética */
         .aritmetica-juego {
             margin-top: 20px;
         }
@@ -88,6 +83,7 @@
         .resultado {
             margin-top: 15px;
             font-size: 1.2em;
+            font-weight: bold;
         }
 
     </style>
@@ -154,7 +150,7 @@
             const opSpan = document.getElementById("operacion");
             opSpan.textContent = operaciones[actual].op;
             document.getElementById("respuesta").value = "";
-            document.getElementById("resultado").textContent = "";
+            // NO limpiamos el resultado aquí para mostrarlo tras comprobar
         }
 
         function comprobar() {
@@ -162,12 +158,16 @@
             const resultadoDiv = document.getElementById("resultado");
 
             if(user === operaciones[actual].resultado){
-                resultadoDiv.textContent = "¡Correcto!";
+                resultadoDiv.textContent = "¡Correcto! ✅";
                 resultadoDiv.style.color = "lightgreen";
-                actual = (actual + 1) % operaciones.length;
-                mostrarOperacion();
+                // Avanzar a la siguiente operación después de 1 segundo
+                setTimeout(() => {
+                    actual = (actual + 1) % operaciones.length;
+                    mostrarOperacion();
+                    resultadoDiv.textContent = "";
+                }, 1000);
             } else {
-                resultadoDiv.textContent = "Incorrecto, intenta de nuevo.";
+                resultadoDiv.textContent = "Incorrecto, intenta de nuevo ❌";
                 resultadoDiv.style.color = "orange";
             }
         }
