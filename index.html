@@ -55,7 +55,7 @@ section h2 {
     margin-top: 20px;
 }
 
-input[type="number"], input[type="text"] {
+input[type="number"] {
     width: 60px;
     font-size: 1em;
     text-align: center;
@@ -105,12 +105,10 @@ button.juego:hover {
     <a href="#calculo" class="button">Cálculo</a>
 </div>
 
-<!-- Secciones -->
 <section id="aritmetica">
 <h2>Aritmética</h2>
 <p>La aritmética se centra en las operaciones básicas como suma, resta, multiplicación y división, así como el estudio de números enteros, fracciones y decimales.</p>
 
-<!-- Juego de operaciones -->
 <div class="aritmetica-juego">
     <h3>Juego: Completa la operación</h3>
     <p>Resuelve la operación y escribe el resultado:</p>
@@ -118,18 +116,8 @@ button.juego:hover {
     <input type="number" id="respuesta">
     <button class="juego" onclick="comprobar()">Comprobar</button>
     <div class="resultado" id="resultado"></div>
-</div>
 
-<!-- Juego de ahorcado -->
-<div class="ahorcado-juego">
-    <h3>Juego: Ahorcado</h3>
-    <p>Adivina la palabra:</p>
     <canvas id="ahorcadoCanvas" width="300" height="200"></canvas>
-    <div style="margin-top:10px;">
-        <input type="text" id="letra" maxlength="1">
-        <button class="juego" onclick="probarLetra()">Probar letra</button>
-    </div>
-    <div class="resultado" id="resultadoAhorcado"></div>
 </div>
 </section>
 
@@ -139,7 +127,7 @@ button.juego:hover {
 <section id="calculo"><h2>Cálculo</h2><p>El cálculo se enfoca en el estudio de cambios mediante derivadas e integrales.</p></section>
 
 <script>
-// Juego de aritmética
+// Operaciones de aritmética
 const operaciones = [
     {op: "5 + 7", resultado: 12},
     {op: "9 - 4", resultado: 5},
@@ -147,33 +135,19 @@ const operaciones = [
     {op: "20 ÷ 5", resultado: 4}
 ];
 let actual = 0;
+let errores = 0;
+
+const canvas = document.getElementById("ahorcadoCanvas");
+const ctx = canvas.getContext("2d");
+
 function mostrarOperacion() {
     document.getElementById("operacion").textContent = operaciones[actual].op;
     document.getElementById("respuesta").value = "";
 }
-function comprobar() {
-    const user = parseInt(document.getElementById("respuesta").value);
-    const resultadoDiv = document.getElementById("resultado");
-    if(user === operaciones[actual].resultado){
-        resultadoDiv.textContent = "¡Correcto! ✅";
-        resultadoDiv.style.color = "lightgreen";
-        setTimeout(() => { actual = (actual+1)%operaciones.length; mostrarOperacion(); resultadoDiv.textContent="";},1000);
-    } else {
-        resultadoDiv.textContent = "Incorrecto, intenta de nuevo ❌";
-        resultadoDiv.style.color = "orange";
-    }
-}
-mostrarOperacion();
 
-// Juego del ahorcado
-const canvas = document.getElementById("ahorcadoCanvas");
-const ctx = canvas.getContext("2d");
-let palabra = "MATEMATICAS";
-let letras = [];
-let errores = 0;
-
-function dibujarEscena() {
+function dibujarAhorcado() {
     ctx.clearRect(0,0,canvas.width,canvas.height);
+
     if(errores >= 2){
         // dibujar árboles
         ctx.strokeStyle="white";
@@ -202,32 +176,31 @@ function dibujarEscena() {
     }
 }
 
-function actualizarPalabra() {
-    const display = palabra.split('').map(l => (letras.includes(l)?l:'_')).join(' ');
-    document.getElementById("resultadoAhorcado").textContent = display;
-}
+function comprobar() {
+    const user = parseInt(document.getElementById("respuesta").value);
+    const resultadoDiv = document.getElementById("resultado");
 
-function probarLetra() {
-    const input = document.getElementById("letra");
-    const letra = input.value.toUpperCase();
-    input.value="";
-    if(letra && !letras.includes(letra)){
-        if(palabra.includes(letra)){
-            letras.push(letra);
-        } else {
-            errores++;
-        }
-        actualizarPalabra();
-        dibujarEscena();
-        if(!document.getElementById("resultadoAhorcado").textContent.includes('_')){
-            document.getElementById("resultadoAhorcado").textContent = "¡Ganaste! 🎉 " + palabra;
-        } else if(errores>=3){
-            document.getElementById("resultadoAhorcado").textContent = "¡Fin del juego! La palabra era: " + palabra;
+    if(user === operaciones[actual].resultado){
+        resultadoDiv.textContent = "¡Correcto! ✅";
+        resultadoDiv.style.color = "lightgreen";
+        setTimeout(() => {
+            actual = (actual+1)%operaciones.length;
+            mostrarOperacion();
+            resultadoDiv.textContent="";
+        },1000);
+    } else {
+        errores++;
+        dibujarAhorcado();
+        resultadoDiv.textContent = "Incorrecto, intenta de nuevo ❌";
+        resultadoDiv.style.color = "orange";
+        if(errores >= 3){
+            resultadoDiv.textContent += " ¡Has alcanzado el límite de errores!";
         }
     }
 }
-actualizarPalabra();
-dibujarEscena();
+
+mostrarOperacion();
+dibujarAhorcado();
 </script>
 </body>
 </html>
