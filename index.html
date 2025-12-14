@@ -1,178 +1,233 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Matemáticas</title>
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: linear-gradient(to right, #6a11cb, #2575fc);
-            color: white;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 50px 20px;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Matemáticas</title>
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to right, #6a11cb, #2575fc);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 50px 20px;
+}
 
-        h1 {
-            margin-bottom: 40px;
-            text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
-        }
+h1 {
+    margin-bottom: 40px;
+    text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+}
 
-        .button {
-            background-color: rgba(255, 255, 255, 0.2);
-            border: 2px solid white;
-            color: white;
-            padding: 15px 25px;
-            font-size: 1.2em;
-            margin: 10px;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: 0.3s;
-            text-decoration: none;
-        }
+.button {
+    background-color: rgba(255, 255, 255, 0.2);
+    border: 2px solid white;
+    color: white;
+    padding: 15px 25px;
+    font-size: 1.2em;
+    margin: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+    text-decoration: none;
+}
 
-        .button:hover {
-            background-color: white;
-            color: #2575fc;
-            border-color: #2575fc;
-        }
+.button:hover {
+    background-color: white;
+    color: #2575fc;
+    border-color: #2575fc;
+}
 
-        section {
-            max-width: 800px;
-            margin-top: 50px;
-            text-align: center;
-            font-size: 1.2em;
-        }
+section {
+    max-width: 800px;
+    margin-top: 50px;
+    text-align: center;
+    font-size: 1.2em;
+}
 
-        section h2 {
-            margin-bottom: 15px;
-        }
+section h2 {
+    margin-bottom: 15px;
+}
 
-        .aritmetica-juego {
-            margin-top: 20px;
-        }
+.aritmetica-juego {
+    margin-top: 20px;
+}
 
-        input[type="number"] {
-            width: 60px;
-            font-size: 1em;
-            text-align: center;
-            margin-right: 10px;
-        }
+input[type="number"], input[type="text"] {
+    width: 60px;
+    font-size: 1em;
+    text-align: center;
+    margin-right: 10px;
+}
 
-        button.juego {
-            padding: 8px 15px;
-            font-size: 1em;
-            margin-left: 10px;
-            border-radius: 8px;
-            border: none;
-            cursor: pointer;
-            background-color: white;
-            color: #2575fc;
-            font-weight: bold;
-            transition: 0.3s;
-        }
+button.juego {
+    padding: 8px 15px;
+    font-size: 1em;
+    margin-left: 10px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    background-color: white;
+    color: #2575fc;
+    font-weight: bold;
+    transition: 0.3s;
+}
 
-        button.juego:hover {
-            background-color: #2575fc;
-            color: white;
-        }
+button.juego:hover {
+    background-color: #2575fc;
+    color: white;
+}
 
-        .resultado {
-            margin-top: 15px;
-            font-size: 1.2em;
-            font-weight: bold;
-        }
+.resultado {
+    margin-top: 15px;
+    font-size: 1.2em;
+    font-weight: bold;
+}
 
-    </style>
+#ahorcadoCanvas {
+    margin-top: 30px;
+    border: 2px solid white;
+    background-color: rgba(255,255,255,0.1);
+}
+</style>
 </head>
 <body>
-    <h1>Matemáticas</h1>
+<h1>Matemáticas</h1>
 
-    <!-- Botones -->
-    <div>
-        <a href="#aritmetica" class="button">Aritmética</a>
-        <a href="#algebra" class="button">Álgebra</a>
-        <a href="#estadistica" class="button">Estadística</a>
-        <a href="#geometria" class="button">Geometría</a>
-        <a href="#calculo" class="button">Cálculo</a>
+<!-- Botones -->
+<div>
+    <a href="#aritmetica" class="button">Aritmética</a>
+    <a href="#algebra" class="button">Álgebra</a>
+    <a href="#estadistica" class="button">Estadística</a>
+    <a href="#geometria" class="button">Geometría</a>
+    <a href="#calculo" class="button">Cálculo</a>
+</div>
+
+<!-- Secciones -->
+<section id="aritmetica">
+<h2>Aritmética</h2>
+<p>La aritmética se centra en las operaciones básicas como suma, resta, multiplicación y división, así como el estudio de números enteros, fracciones y decimales.</p>
+
+<!-- Juego de operaciones -->
+<div class="aritmetica-juego">
+    <h3>Juego: Completa la operación</h3>
+    <p>Resuelve la operación y escribe el resultado:</p>
+    <span id="operacion"></span>
+    <input type="number" id="respuesta">
+    <button class="juego" onclick="comprobar()">Comprobar</button>
+    <div class="resultado" id="resultado"></div>
+</div>
+
+<!-- Juego de ahorcado -->
+<div class="ahorcado-juego">
+    <h3>Juego: Ahorcado</h3>
+    <p>Adivina la palabra:</p>
+    <canvas id="ahorcadoCanvas" width="300" height="200"></canvas>
+    <div style="margin-top:10px;">
+        <input type="text" id="letra" maxlength="1">
+        <button class="juego" onclick="probarLetra()">Probar letra</button>
     </div>
+    <div class="resultado" id="resultadoAhorcado"></div>
+</div>
+</section>
 
-    <!-- Secciones -->
-    <section id="aritmetica">
-        <h2>Aritmética</h2>
-        <p>La aritmética se centra en las operaciones básicas como suma, resta, multiplicación y división, así como el estudio de números enteros, fracciones y decimales.</p>
+<section id="algebra"><h2>Álgebra</h2><p>El álgebra trabaja con variables, ecuaciones y expresiones algebraicas.</p></section>
+<section id="estadistica"><h2>Estadística</h2><p>La estadística analiza, interpreta y representa datos mediante gráficos, medidas de tendencia central y probabilidades.</p></section>
+<section id="geometria"><h2>Geometría</h2><p>La geometría estudia las propiedades y relaciones de figuras.</p></section>
+<section id="calculo"><h2>Cálculo</h2><p>El cálculo se enfoca en el estudio de cambios mediante derivadas e integrales.</p></section>
 
-        <div class="aritmetica-juego">
-            <h3>Juego: Completa la operación</h3>
-            <p>Resuelve la operación y escribe el resultado:</p>
-            <span id="operacion"></span>
-            <input type="number" id="respuesta">
-            <button class="juego" onclick="comprobar()">Comprobar</button>
-            <div class="resultado" id="resultado"></div>
-        </div>
-    </section>
+<script>
+// Juego de aritmética
+const operaciones = [
+    {op: "5 + 7", resultado: 12},
+    {op: "9 - 4", resultado: 5},
+    {op: "3 × 6", resultado: 18},
+    {op: "20 ÷ 5", resultado: 4}
+];
+let actual = 0;
+function mostrarOperacion() {
+    document.getElementById("operacion").textContent = operaciones[actual].op;
+    document.getElementById("respuesta").value = "";
+}
+function comprobar() {
+    const user = parseInt(document.getElementById("respuesta").value);
+    const resultadoDiv = document.getElementById("resultado");
+    if(user === operaciones[actual].resultado){
+        resultadoDiv.textContent = "¡Correcto! ✅";
+        resultadoDiv.style.color = "lightgreen";
+        setTimeout(() => { actual = (actual+1)%operaciones.length; mostrarOperacion(); resultadoDiv.textContent="";},1000);
+    } else {
+        resultadoDiv.textContent = "Incorrecto, intenta de nuevo ❌";
+        resultadoDiv.style.color = "orange";
+    }
+}
+mostrarOperacion();
 
-    <section id="algebra">
-        <h2>Álgebra</h2>
-        <p>El álgebra trabaja con variables, ecuaciones y expresiones algebraicas, permitiendo resolver problemas y modelar situaciones matemáticas.</p>
-    </section>
+// Juego del ahorcado
+const canvas = document.getElementById("ahorcadoCanvas");
+const ctx = canvas.getContext("2d");
+let palabra = "MATEMATICAS";
+let letras = [];
+let errores = 0;
 
-    <section id="estadistica">
-        <h2>Estadística</h2>
-        <p>La estadística analiza, interpreta y representa datos mediante gráficos, medidas de tendencia central y probabilidades.</p>
-    </section>
+function dibujarEscena() {
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    if(errores >= 2){
+        // dibujar árboles
+        ctx.strokeStyle="white";
+        ctx.lineWidth=3;
+        ctx.beginPath();
+        ctx.moveTo(20,150); ctx.lineTo(20,50); ctx.stroke(); // arbol izquierdo
+        ctx.beginPath();
+        ctx.moveTo(280,150); ctx.lineTo(280,50); ctx.stroke(); // arbol derecho
+    }
+    if(errores >= 3){
+        // dibujar cuerda
+        ctx.beginPath();
+        ctx.moveTo(20,50); ctx.lineTo(280,50); ctx.stroke();
+    }
+    if(errores >= 1){
+        // dibujar persona en el centro
+        ctx.strokeStyle="red";
+        ctx.beginPath();
+        ctx.arc(150,80,10,0,Math.PI*2); // cabeza
+        ctx.moveTo(150,90); ctx.lineTo(150,130); // cuerpo
+        ctx.moveTo(150,100); ctx.lineTo(130,110); // brazo izq
+        ctx.moveTo(150,100); ctx.lineTo(170,110); // brazo der
+        ctx.moveTo(150,130); ctx.lineTo(130,150); // pierna izq
+        ctx.moveTo(150,130); ctx.lineTo(170,150); // pierna der
+        ctx.stroke();
+    }
+}
 
-    <section id="geometria">
-        <h2>Geometría</h2>
-        <p>La geometría estudia las propiedades y relaciones de figuras, como ángulos, líneas, polígonos y cuerpos tridimensionales.</p>
-    </section>
+function actualizarPalabra() {
+    const display = palabra.split('').map(l => (letras.includes(l)?l:'_')).join(' ');
+    document.getElementById("resultadoAhorcado").textContent = display;
+}
 
-    <section id="calculo">
-        <h2>Cálculo</h2>
-        <p>El cálculo se enfoca en el estudio de cambios mediante derivadas e integrales, y su aplicación en funciones y problemas reales.</p>
-    </section>
-
-    <script>
-        // Juego de aritmética
-        const operaciones = [
-            {op: "5 + 7", resultado: 12},
-            {op: "9 - 4", resultado: 5},
-            {op: "3 × 6", resultado: 18},
-            {op: "20 ÷ 5", resultado: 4}
-        ];
-
-        let actual = 0;
-
-        function mostrarOperacion() {
-            const opSpan = document.getElementById("operacion");
-            opSpan.textContent = operaciones[actual].op;
-            document.getElementById("respuesta").value = "";
-            // NO limpiamos el resultado aquí para mostrarlo tras comprobar
+function probarLetra() {
+    const input = document.getElementById("letra");
+    const letra = input.value.toUpperCase();
+    input.value="";
+    if(letra && !letras.includes(letra)){
+        if(palabra.includes(letra)){
+            letras.push(letra);
+        } else {
+            errores++;
         }
-
-        function comprobar() {
-            const user = parseInt(document.getElementById("respuesta").value);
-            const resultadoDiv = document.getElementById("resultado");
-
-            if(user === operaciones[actual].resultado){
-                resultadoDiv.textContent = "¡Correcto! ✅";
-                resultadoDiv.style.color = "lightgreen";
-                // Avanzar a la siguiente operación después de 1 segundo
-                setTimeout(() => {
-                    actual = (actual + 1) % operaciones.length;
-                    mostrarOperacion();
-                    resultadoDiv.textContent = "";
-                }, 1000);
-            } else {
-                resultadoDiv.textContent = "Incorrecto, intenta de nuevo ❌";
-                resultadoDiv.style.color = "orange";
-            }
+        actualizarPalabra();
+        dibujarEscena();
+        if(!document.getElementById("resultadoAhorcado").textContent.includes('_')){
+            document.getElementById("resultadoAhorcado").textContent = "¡Ganaste! 🎉 " + palabra;
+        } else if(errores>=3){
+            document.getElementById("resultadoAhorcado").textContent = "¡Fin del juego! La palabra era: " + palabra;
         }
-
-        mostrarOperacion();
-    </script>
+    }
+}
+actualizarPalabra();
+dibujarEscena();
+</script>
 </body>
 </html>
