@@ -17,7 +17,6 @@
             padding: 50px 20px;
         }
 
-        /* Título principal */
         h1 {
             font-size: 4em;
             margin-bottom: 40px;
@@ -55,6 +54,42 @@
         section h2 {
             margin-bottom: 15px;
         }
+
+        /* Estilo juego de aritmética */
+        .aritmetica-juego {
+            margin-top: 20px;
+        }
+
+        input[type="number"] {
+            width: 60px;
+            font-size: 1em;
+            text-align: center;
+            margin-right: 10px;
+        }
+
+        button.juego {
+            padding: 8px 15px;
+            font-size: 1em;
+            margin-left: 10px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            background-color: white;
+            color: #2575fc;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        button.juego:hover {
+            background-color: #2575fc;
+            color: white;
+        }
+
+        .resultado {
+            margin-top: 15px;
+            font-size: 1.2em;
+        }
+
     </style>
 </head>
 <body>
@@ -73,6 +108,15 @@
     <section id="aritmetica">
         <h2>Aritmética</h2>
         <p>La aritmética se centra en las operaciones básicas como suma, resta, multiplicación y división, así como el estudio de números enteros, fracciones y decimales.</p>
+
+        <div class="aritmetica-juego">
+            <h3>Juego: Completa la operación</h3>
+            <p>Resuelve la operación y escribe el resultado:</p>
+            <span id="operacion"></span>
+            <input type="number" id="respuesta">
+            <button class="juego" onclick="comprobar()">Comprobar</button>
+            <div class="resultado" id="resultado"></div>
+        </div>
     </section>
 
     <section id="algebra">
@@ -94,5 +138,41 @@
         <h2>Cálculo</h2>
         <p>El cálculo se enfoca en el estudio de cambios mediante derivadas e integrales, y su aplicación en funciones y problemas reales.</p>
     </section>
+
+    <script>
+        // Juego de aritmética
+        const operaciones = [
+            {op: "5 + 7", resultado: 12},
+            {op: "9 - 4", resultado: 5},
+            {op: "3 × 6", resultado: 18},
+            {op: "20 ÷ 5", resultado: 4}
+        ];
+
+        let actual = 0;
+
+        function mostrarOperacion() {
+            const opSpan = document.getElementById("operacion");
+            opSpan.textContent = operaciones[actual].op;
+            document.getElementById("respuesta").value = "";
+            document.getElementById("resultado").textContent = "";
+        }
+
+        function comprobar() {
+            const user = parseInt(document.getElementById("respuesta").value);
+            const resultadoDiv = document.getElementById("resultado");
+
+            if(user === operaciones[actual].resultado){
+                resultadoDiv.textContent = "¡Correcto!";
+                resultadoDiv.style.color = "lightgreen";
+                actual = (actual + 1) % operaciones.length;
+                mostrarOperacion();
+            } else {
+                resultadoDiv.textContent = "Incorrecto, intenta de nuevo.";
+                resultadoDiv.style.color = "orange";
+            }
+        }
+
+        mostrarOperacion();
+    </script>
 </body>
 </html>
