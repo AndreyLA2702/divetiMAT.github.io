@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crucigrama de Álgebra</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 30px;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        table {
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        td {
+            border: 2px solid white;
+            width: 50px;
+            height: 50px;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        input {
+            width: 90%;
+            height: 90%;
+            text-align: center;
+            font-size: 1.2em;
+            border: none;
+            background-color: rgba(255,255,255,0.2);
+            color: white;
+        }
+
+        input:focus {
+            outline: 2px solid #fff;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 1em;
+            margin-top: 10px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            background-color: white;
+            color: #2575fc;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background-color: #2575fc;
+            color: white;
+        }
+
+        .result {
+            margin-top: 15px;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <h1>Crucigrama Matemático - Álgebra</h1>
+    <p>Completa los espacios para que cada ecuación horizontal y vertical tenga el resultado correcto.</p>
+
+    <table>
+        <tr>
+            <td><input type="text" id="cell00"></td>
+            <td><input type="text" id="cell01"></td>
+            <td><input type="text" id="cell02"></td>
+        </tr>
+        <tr>
+            <td><input type="text" id="cell10"></td>
+            <td><input type="text" id="cell11"></td>
+            <td><input type="text" id="cell12"></td>
+        </tr>
+        <tr>
+            <td><input type="text" id="cell20"></td>
+            <td><input type="text" id="cell21"></td>
+            <td><input type="text" id="cell22"></td>
+        </tr>
+    </table>
+
+    <button onclick="checkCrucigrama()">Comprobar respuestas</button>
+    <div class="result" id="result"></div>
+
+    <script>
+        // Definimos las respuestas correctas
+        const respuestas = {
+            horizontal: [
+                [2, 4, 6],  // Primera fila
+                [3, 5, 7],  // Segunda fila
+                [1, 8, 2]   // Tercera fila
+            ],
+            vertical: [
+                [2, 3, 1],  // Primera columna
+                [4, 5, 8],  // Segunda columna
+                [6, 7, 2]   // Tercera columna
+            ]
+        };
+
+        function checkCrucigrama() {
+            let correctos = 0;
+
+            for(let i = 0; i < 3; i++){
+                for(let j = 0; j < 3; j++){
+                    const cell = document.getElementById(`cell${i}${j}`);
+                    const value = parseInt(cell.value);
+
+                    if(value === respuestas.horizontal[i][j] && value === respuestas.vertical[j][i]){
+                        correctos++;
+                        cell.style.backgroundColor = "green";
+                    } else {
+                        cell.style.backgroundColor = "rgba(255,255,255,0.2)";
+                    }
+                }
+            }
+
+            const resultDiv = document.getElementById("result");
+            if(correctos === 9){
+                resultDiv.textContent = "¡Excelente! Todas las ecuaciones están correctas.";
+            } else {
+                resultDiv.textContent = "Aún hay errores, sigue intentando.";
+            }
+        }
+    </script>
+</body>
+</html>
