@@ -1,139 +1,220 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crucigrama de Álgebra</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: linear-gradient(to right, #6a11cb, #2575fc);
-            color: white;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 30px;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Matemáticas</title>
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to right, #6a11cb, #2575fc);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 50px 20px;
+}
 
-        h1 {
-            margin-bottom: 20px;
-        }
+h1 {
+    margin-bottom: 40px;
+    text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+}
 
-        table {
-            border-collapse: collapse;
-            margin-bottom: 20px;
-        }
+.button {
+    background-color: rgba(255, 255, 255, 0.2);
+    border: 2px solid white;
+    color: white;
+    padding: 15px 25px;
+    font-size: 1.2em;
+    margin: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+    text-decoration: none;
+}
 
-        td {
-            border: 2px solid white;
-            width: 50px;
-            height: 50px;
-            text-align: center;
-            vertical-align: middle;
-        }
+.button:hover {
+    background-color: white;
+    color: #2575fc;
+    border-color: #2575fc;
+}
 
-        input {
-            width: 90%;
-            height: 90%;
-            text-align: center;
-            font-size: 1.2em;
-            border: none;
-            background-color: rgba(255,255,255,0.2);
-            color: white;
-        }
+section {
+    max-width: 800px;
+    margin-top: 50px;
+    text-align: center;
+    font-size: 1.2em;
+}
 
-        input:focus {
-            outline: 2px solid #fff;
-        }
+section h2 {
+    margin-bottom: 15px;
+}
 
-        button {
-            padding: 10px 20px;
-            font-size: 1em;
-            margin-top: 10px;
-            border-radius: 8px;
-            border: none;
-            cursor: pointer;
-            background-color: white;
-            color: #2575fc;
-            font-weight: bold;
-            transition: 0.3s;
-        }
+.aritmetica-juego {
+    margin-top: 20px;
+}
 
-        button:hover {
-            background-color: #2575fc;
-            color: white;
-        }
+input[type="number"] {
+    width: 60px;
+    font-size: 1em;
+    text-align: center;
+    margin-right: 10px;
+}
 
-        .result {
-            margin-top: 15px;
-            font-size: 1.2em;
-        }
-    </style>
+button.juego {
+    padding: 8px 15px;
+    font-size: 1em;
+    margin-left: 10px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    background-color: white;
+    color: #2575fc;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+button.juego:hover {
+    background-color: #2575fc;
+    color: white;
+}
+
+.resultado {
+    margin-top: 15px;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+#ahorcadoCanvas {
+    margin-top: 30px;
+    border: 2px solid white;
+    background-color: rgba(255,255,255,0.1);
+}
+</style>
 </head>
 <body>
-    <h1>Crucigrama Matemático - Álgebra</h1>
-    <p>Completa los espacios para que cada ecuación horizontal y vertical tenga el resultado correcto.</p>
+<h1>Matemáticas</h1>
 
-    <table>
-        <tr>
-            <td><input type="text" id="cell00"></td>
-            <td><input type="text" id="cell01"></td>
-            <td><input type="text" id="cell02"></td>
-        </tr>
-        <tr>
-            <td><input type="text" id="cell10"></td>
-            <td><input type="text" id="cell11"></td>
-            <td><input type="text" id="cell12"></td>
-        </tr>
-        <tr>
-            <td><input type="text" id="cell20"></td>
-            <td><input type="text" id="cell21"></td>
-            <td><input type="text" id="cell22"></td>
-        </tr>
-    </table>
+<!-- Botones -->
+<div>
+    <a href="#aritmetica" class="button">Aritmética</a>
+    <a href="#algebra" class="button">Álgebra</a>
+    <a href="#estadistica" class="button">Estadística</a>
+    <a href="#geometria" class="button">Geometría</a>
+    <a href="#calculo" class="button">Cálculo</a>
+</div>
 
-    <button onclick="checkCrucigrama()">Comprobar respuestas</button>
-    <div class="result" id="result"></div>
+<section id="aritmetica">
+<h2>Aritmética</h2>
+<p>La aritmética se centra en las operaciones básicas como suma, resta, multiplicación y división, así como el estudio de números enteros, fracciones y decimales.</p>
 
-    <script>
-        // Definimos las respuestas correctas
-        const respuestas = {
-            horizontal: [
-                [2, 4, 6],  // Primera fila
-                [3, 5, 7],  // Segunda fila
-                [1, 8, 2]   // Tercera fila
-            ],
-            vertical: [
-                [2, 3, 1],  // Primera columna
-                [4, 5, 8],  // Segunda columna
-                [6, 7, 2]   // Tercera columna
-            ]
-        };
+<div class="aritmetica-juego">
+    <h3>Juego: Completa la operación</h3>
+    <p>Resuelve la operación y escribe el resultado:</p>
+    <span id="operacion"></span>
+    <input type="number" id="respuesta">
+    <button class="juego" onclick="comprobar()">Comprobar</button>
+    <div class="resultado" id="resultado"></div>
 
-        function checkCrucigrama() {
-            let correctos = 0;
+    <canvas id="ahorcadoCanvas" width="300" height="200"></canvas>
+</div>
+</section>
 
-            for(let i = 0; i < 3; i++){
-                for(let j = 0; j < 3; j++){
-                    const cell = document.getElementById(`cell${i}${j}`);
-                    const value = parseInt(cell.value);
+<section id="algebra"><h2>Álgebra</h2><p>El álgebra trabaja con variables, ecuaciones y expresiones algebraicas.</p></section>
+<section id="estadistica"><h2>Estadística</h2><p>La estadística analiza, interpreta y representa datos mediante gráficos, medidas de tendencia central y probabilidades.</p></section>
+<section id="geometria"><h2>Geometría</h2><p>La geometría estudia las propiedades y relaciones de figuras.</p></section>
+<section id="calculo"><h2>Cálculo</h2><p>El cálculo se enfoca en el estudio de cambios mediante derivadas e integrales.</p></section>
 
-                    if(value === respuestas.horizontal[i][j] && value === respuestas.vertical[j][i]){
-                        correctos++;
-                        cell.style.backgroundColor = "green";
-                    } else {
-                        cell.style.backgroundColor = "rgba(255,255,255,0.2)";
-                    }
-                }
-            }
+<script>
+// Juego de aritmética
+const operaciones = [
+    {op: "5 + 7", resultado: 12},
+    {op: "9 - 4", resultado: 5},
+    {op: "3 × 6", resultado: 18},
+    {op: "20 ÷ 5", resultado: 4}
+];
+let actual = 0;
+let errores = 0;
 
-            const resultDiv = document.getElementById("result");
-            if(correctos === 9){
-                resultDiv.textContent = "¡Excelente! Todas las ecuaciones están correctas.";
-            } else {
-                resultDiv.textContent = "Aún hay errores, sigue intentando.";
-            }
+const canvas = document.getElementById("ahorcadoCanvas");
+const ctx = canvas.getContext("2d");
+
+function mostrarOperacion() {
+    document.getElementById("operacion").textContent = operaciones[actual].op;
+    document.getElementById("respuesta").value = "";
+}
+
+// Dibujar árboles con tronco y copa triangular
+function dibujarArbol(x, y) {
+    // tronco
+    ctx.fillStyle = "#8B4513";
+    ctx.fillRect(x-5, y, 10, 40);
+    // copa
+    ctx.fillStyle = "#228B22";
+    ctx.beginPath();
+    ctx.moveTo(x-20, y);
+    ctx.lineTo(x+20, y);
+    ctx.lineTo(x, y-30);
+    ctx.closePath();
+    ctx.fill();
+}
+
+function dibujarAhorcado() {
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+
+    if(errores >= 2){
+        // dibujar árboles
+        dibujarArbol(50,110);
+        dibujarArbol(250,110);
+    }
+    if(errores >= 3){
+        // dibujar cuerda entre árboles
+        ctx.strokeStyle="white";
+        ctx.lineWidth=2;
+        ctx.beginPath();
+        ctx.moveTo(50,80); ctx.lineTo(250,80);
+        ctx.stroke();
+    }
+    if(errores >= 1){
+        // dibujar persona colgando en el centro
+        ctx.strokeStyle="red";
+        ctx.beginPath();
+        ctx.arc(150,90,10,0,Math.PI*2); // cabeza
+        ctx.moveTo(150,100); ctx.lineTo(150,140); // cuerpo
+        ctx.moveTo(150,110); ctx.lineTo(130,125); // brazo izq
+        ctx.moveTo(150,110); ctx.lineTo(170,125); // brazo der
+        ctx.moveTo(150,140); ctx.lineTo(130,160); // pierna izq
+        ctx.moveTo(150,140); ctx.lineTo(170,160); // pierna der
+        ctx.stroke();
+    }
+}
+
+function comprobar() {
+    const user = parseInt(document.getElementById("respuesta").value);
+    const resultadoDiv = document.getElementById("resultado");
+
+    if(user === operaciones[actual].resultado){
+        resultadoDiv.textContent = "¡Correcto! ✅";
+        resultadoDiv.style.color = "lightgreen";
+        setTimeout(() => {
+            actual = (actual+1)%operaciones.length;
+            mostrarOperacion();
+            resultadoDiv.textContent="";
+        },1000);
+    } else {
+        errores++;
+        dibujarAhorcado();
+        resultadoDiv.textContent = "Incorrecto, intenta de nuevo ❌";
+        resultadoDiv.style.color = "orange";
+        if(errores >= 3){
+            resultadoDiv.textContent += " ¡Has alcanzado el límite de errores!";
         }
-    </script>
+    }
+}
+
+mostrarOperacion();
+dibujarAhorcado();
+</script>
 </body>
 </html>
